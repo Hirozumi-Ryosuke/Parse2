@@ -1,0 +1,2 @@
+rootProject.name='Parse2'
+include ':app'
