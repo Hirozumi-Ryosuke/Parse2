@@ -1,5 +1,6 @@
 package com.example.parse2
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,9 +41,26 @@ class MainAdapter(val homeFeed: HomeFeed) : RecyclerView.Adapter<CustomViewHolde
             crossfade(true)
             transformations(CircleCropTransformation())
         }
+
+        holder.video = video
     }
 }
 
-class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class CustomViewHolder(val view: View, var video: Video? = null) : RecyclerView.ViewHolder(view) {
 
+    companion object {
+        val VIDEO_TITLE_KEY = "VIDEO_TITLE"
+        val VIDEO_ID_KEY = "VIDEO_ID"
+    }
+
+    init {
+        view.setOnClickListener {
+            val intent = Intent(view.context, CourseDetailActivity::class.java)
+
+            intent.putExtra(VIDEO_TITLE_KEY, video?.name)
+            intent.putExtra(VIDEO_ID_KEY, video?.id)
+
+            view.context.startActivity(intent)
+        }
+    }
 }
